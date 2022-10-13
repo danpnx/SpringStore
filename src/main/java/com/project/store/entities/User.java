@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="tb_user")
+
 public class User implements Serializable {
 
     @Id
