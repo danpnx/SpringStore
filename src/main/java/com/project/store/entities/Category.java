@@ -4,7 +4,9 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="tb_category")
@@ -16,6 +18,9 @@ public class Category implements Serializable {
 
     @NotNull
     private String name;
+
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
     public Category() {}
 
@@ -34,6 +39,10 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
