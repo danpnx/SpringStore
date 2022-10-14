@@ -1,5 +1,6 @@
 package com.project.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class User implements Serializable {
     @NotNull
     private String password;
     @OneToMany(mappedBy = "client")
+    @JsonIgnoreProperties("client")
     private List<Order> orders = new ArrayList<>();
 
     public User() {}
