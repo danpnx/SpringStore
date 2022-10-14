@@ -3,7 +3,6 @@ package com.project.store.services;
 import com.project.store.entities.User;
 import com.project.store.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
