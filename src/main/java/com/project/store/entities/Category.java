@@ -1,5 +1,6 @@
 package com.project.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -19,7 +20,8 @@ public class Category implements Serializable {
     @NotNull
     private String name;
 
-    @Transient
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnoreProperties(value = "categories")
     private Set<Product> products = new HashSet<>();
 
     public Category() {}

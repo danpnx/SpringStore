@@ -1,5 +1,6 @@
 package com.project.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -29,7 +30,17 @@ public class Product implements Serializable {
     @NotNull
     private String imgUrl;
 
-    @Transient
+    @ManyToMany
+    // Anotação para criar tabela associativa em uma relação muitos para muitos
+    // uma tabela é definida: tb_product_category
+    // uma coluna é definida contendo o id do produto
+    // uma outra coluna é definida contendo o id da categoria
+    @JoinTable(
+            name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @JsonIgnoreProperties(value = "products")
     private Set<Category> categories = new HashSet<>();
 
     public Product() {}

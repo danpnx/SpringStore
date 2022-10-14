@@ -40,32 +40,46 @@ public class TestConfig implements CommandLineRunner {
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
 
-        Product p1 = new Product(
+        Product prod1 = new Product(
                 null,
                 "The Lord of the Rings",
                 "Lorem ipsum dolor sit amet, consectetur.",
                 new BigDecimal(90.5), ""
         );
-        Product p2 = new Product(
+        Product prod2 = new Product(
                 null, "Smart TV",
                 "Nulla eu imperdiet purus. Maecenas ante.",
                 new BigDecimal(2190.0), ""
         );
-        Product p3 = new Product(
+        Product prod3 = new Product(
                 null, "Macbook Pro",
                 "Nam eleifend maximus tortor, at mollis.",
                 new BigDecimal(1250.0), ""
         );
-        Product p4 = new Product(
+        Product prod4 = new Product(
                 null, "PC Gamer",
                 "Donec aliquet odio ac rhoncus cursus.",
                 new BigDecimal(1200.0), ""
         );
-        Product p5 = new Product(
+        Product prod5 = new Product(
                 null, "Rails for Dummies",
                 "Cras fringilla convallis sem vel faucibus.",
                 new BigDecimal(100.99), ""
         );
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRepository.saveAll(Arrays.asList(prod1, prod2, prod3,prod4, prod5));
+
+        prod1.getCategories().add(cat2);
+        prod2.getCategories().add(cat1);
+        prod2.getCategories().add(cat3);
+        prod3.getCategories().add(cat3);
+        prod4.getCategories().add(cat3);
+        prod5.getCategories().add(cat2);
+        // É necessário salvar os produtos no banco de dados novamente depois que suas coleções forem atualizadas
+        // Dessa forma, a tabela relacional tb_product_category irá atualizar as relações ManyToMany que existe
+        // Entre as duas entidades
+        productRepository.saveAll(Arrays.asList(prod1, prod2, prod3,prod4, prod5));
 
         User user1 = new User(
                 null, "Maria Elizabete", "maria@email.com", "94321-1234", "12345@"
@@ -84,8 +98,6 @@ public class TestConfig implements CommandLineRunner {
                 null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT ,user1
         );
 
-        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
-        productRepository.saveAll(Arrays.asList(p1, p2, p3,p4, p5));
         userRepository.saveAll(Arrays.asList(user1, user2));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
     }
