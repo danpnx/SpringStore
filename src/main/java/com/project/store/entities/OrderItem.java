@@ -66,6 +66,10 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    public BigDecimal getSubTotal() {
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

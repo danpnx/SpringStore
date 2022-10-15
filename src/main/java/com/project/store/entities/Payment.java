@@ -1,5 +1,6 @@
 package com.project.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Payment implements Serializable {
 
     @OneToOne
     @MapsId
+    @JsonIgnoreProperties(value = "payment")
     private Order order;
 
     public Payment() {}

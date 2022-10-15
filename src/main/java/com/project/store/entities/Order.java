@@ -7,6 +7,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
@@ -37,6 +38,7 @@ public class Order implements Serializable {
     private Set<OrderItem> items = new HashSet<>();
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "order")
     private Payment payment;
 
     public Order() {}
@@ -88,6 +90,15 @@ public class Order implements Serializable {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public BigDecimal getTotal() {
+        BigDecimal sum = new BigDecimal(0);
+        for(OrderItem oi: items) {
+            sum = sum.add(oi.getSubTotal());
+        }
+
+        return sum;
     }
 
     @Override
