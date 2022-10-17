@@ -73,9 +73,7 @@ public class TestConfig implements CommandLineRunner {
         prod3.getCategories().add(cat3);
         prod4.getCategories().add(cat3);
         prod5.getCategories().add(cat2);
-        // É necessário salvar os produtos no banco de dados novamente depois que suas coleções forem atualizadas
-        // Dessa forma, a tabela relacional tb_product_category irá atualizar as relações ManyToMany que existe
-        // Entre as duas entidades
+
         productRepository.saveAll(Arrays.asList(prod1, prod2, prod3,prod4, prod5));
 
         User user1 = new User(
@@ -106,7 +104,9 @@ public class TestConfig implements CommandLineRunner {
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
         Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), order1);
+        Payment pay2 = new Payment(null, Instant.parse("2019-07-01T10:30:21Z"), order2);
         order1.setPayment(pay1);
-        orderRepository.save(order1);
+        order2.setPayment(pay2);
+        orderRepository.saveAll(Arrays.asList(order1, order2));
     }
 }

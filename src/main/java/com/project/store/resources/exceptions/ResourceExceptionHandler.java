@@ -26,9 +26,6 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    // ExceptionHandler para tratar a exceção causada pela DataIntegrityViolationException
-    // Essa exceção é lançada quando existe uma tentativa de violar a integridade do banco de dados
-    // Exemplo: deletar um usuário que possui pedidos associados à conta
     @ExceptionHandler(DatabaseException.class)
     public ResponseEntity<StandardError> databaseException(DatabaseException e, HttpServletRequest request) {
         StandardError error = new StandardError(

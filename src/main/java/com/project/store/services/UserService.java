@@ -4,6 +4,7 @@ import com.project.store.entities.User;
 import com.project.store.repositories.UserRepository;
 import com.project.store.services.exceptions.DatabaseException;
 import com.project.store.services.exceptions.ResourceNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -44,19 +45,11 @@ public class UserService {
 
     public User updateUser(Long id, User obj) {
         try {
-            // Recebe uma referência do objeto
             User entity = userRepository.getReferenceById(id);
-            // atualiza a refência com os novos dados
-            updateData(entity, obj);
+            BeanUtils.copyProperties(obj, entity);
             return userRepository.save(entity);
         } catch(EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
         }
-    }
-
-    private void updateData(User entity, User obj) {
-        entity.setName(obj.getName());
-        entity.setEmail(obj.getEmail());
-        entity.setPhone(obj.getPhone());
     }
 }

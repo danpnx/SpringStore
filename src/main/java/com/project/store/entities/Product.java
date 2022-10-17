@@ -32,10 +32,6 @@ public class Product implements Serializable {
     private String imgUrl;
 
     @ManyToMany
-    // Anotação para criar tabela associativa em uma relação muitos para muitos
-    // uma tabela é definida: tb_product_category
-    // uma coluna é definida contendo o id do produto
-    // uma outra coluna é definida contendo o id da categoria
     @JoinTable(
             name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),

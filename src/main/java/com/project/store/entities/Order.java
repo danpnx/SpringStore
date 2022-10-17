@@ -25,12 +25,11 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH-mm-ss'Z'", timezone = "GMT")
     private Instant moment;
 
-    // atributo inteiro pois armazena o código do status
     @NotNull
     private Integer orderStatus;
 
     @ManyToOne
-    @JoinColumn(name = "client_id") // nome da chave estrangeira que estará no banco de dados
+    @JoinColumn(name = "client_id")
     @JsonIgnoreProperties("orders")
     private User client;
 
@@ -63,12 +62,10 @@ public class Order implements Serializable {
     }
 
     public OrderStatus getOrderStatus() {
-        // obtém um status a partir do código contido no atributo orderStatus
         return OrderStatus.valueOf(orderStatus);
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
-        // obtém o código do status a partir do método getCode()
         this.orderStatus = orderStatus.getCode();
     }
 
